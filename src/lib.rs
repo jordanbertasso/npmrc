@@ -133,6 +133,22 @@ pub struct Npmrc {
     other: HashMap<String, String>,
 }
 
+impl Npmrc {
+    pub fn get_registry_for_package(&self, package: &str) -> Option<&str> {
+        for scope in &self.scopes {
+            if package.starts_with(format!("@{}/", scope.name).as_str()) {
+                return Some(&scope.registry_url);
+            }
+        }
+
+        if self.registry.is_empty() {
+            None
+        } else {
+            Some(&self.registry)
+        }
+    }
+}
+
 /// Read out `.npmrc` and return it.
 pub fn read() -> Result<Npmrc, Error> {
     let npmrc_path = match dirs::home_dir() {
