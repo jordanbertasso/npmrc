@@ -118,7 +118,7 @@ pub struct Npmrc {
 
 /// Read out `.npmrc` and return it.
 pub fn read() -> Result<Npmrc, Error> {
-  let npmrc_path = match std::env::home_dir() {
+  let npmrc_path = match dirs::home_dir() {
     None => return Err(format_err!("User's home directory not found")),
     Some(home_path) => home_path.join(".npmrc"),
   };
