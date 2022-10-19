@@ -103,6 +103,10 @@ pub struct Npmrc {
   #[serde(default, deserialize_with = "de_from_str")]
   pub package_lock: bool,
 
+  /// The base URL of the npm registry.
+  #[serde(default)]
+  pub registry: String,
+
   /// Should npm modify package.json when installing?
   #[serde(default, deserialize_with = "de_from_str")]
   pub save: bool,
